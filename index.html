@@ -1,0 +1,202 @@
+<html>
+	<style>
+		.letterrow {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 5px;
+		}
+
+		.letterbox {
+			width: 50px;
+			height: 50px;
+			border-width: 2px;
+			border-style: solid;
+			border-color: grey;
+			display: inline-block;	
+			margin-right: 5px;
+
+			font-size: 32px;
+			font-family: sans-serif;
+			font-weight: bold;
+			color: black;
+
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.letterbox:last-child {
+			margin-right: 0px;
+		}
+
+		
+		.wrong-letter {
+			background-color: gray;
+		}
+
+		.correct-letter {
+			background-color: green;
+			border-color: green;
+		}
+
+		.wrong-position {
+			background-color: rgb(199, 180, 87);
+			border-color: rgb(199, 180, 87);
+		}
+
+		.keyboard {
+			margin-top: 20px;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+		}
+
+		.keyboard-row {
+			margin-top: 10px;
+		}
+
+		.key {
+			width: 45px;
+			height: 55px;
+			background-color: rgb(213, 214, 218);
+			border-radius: 5px;
+			font-size: 20px;
+			font-weight: bold;
+			font-family: sans-serif;
+
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+
+			margin-right: 5px;
+		}
+	</style>
+
+	<body>
+		<h1 style="text-align: center; margin-top: 25px; font-size: 40px; font-family: sans-serif;">WORDLIA</h1>
+
+		<div class="letterrow" style="margin-top: 50px;">
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+		</div>
+		<div class="letterrow">
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+		</div>
+		<div class="letterrow">
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+		</div>
+		<div class="letterrow">
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+		</div>
+		<div class="letterrow">
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+		</div>
+		<div class="letterrow">
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+			<div class="letterbox"></div>
+		</div>
+
+		<div class="keyboard">
+			<div class="keyboard-row">
+				<div class="key keyQ"><p>Q</p></div>
+				<div class="key"><p>W</p></div>
+				<div class="key"><p>E</p></div>
+				<div class="key"><p>R</p></div>
+				<div class="key"><p>T</p></div>
+				<div class="key"><p>Y</p></div>
+				<div class="key"><p>U</p></div>
+				<div class="key"><p>I</p></div>
+				<div class="key"><p>O</p></div>
+				<div class="key"><p>P</p></div>
+			</div>
+
+			<div class="keyboard-row">
+				<div class="key"><p>A</p></div>
+				<div class="key"><p>S</p></div>
+				<div class="key"><p>D</p></div>
+				<div class="key"><p>F</p></div>
+				<div class="key"><p>G</p></div>
+				<div class="key"><p>H</p></div>
+				<div class="key"><p>J</p></div>
+				<div class="key"><p>K</p></div>
+				<div class="key"><p>L</p></div>
+			</div>
+
+			<div class="keyboard-row">
+				<div class="key" style="width: 100px; font-size: 14px;"><p>ENTER</p></div>
+				<div class="key"><p>Z</p></div>
+				<div class="key"><p>X</p></div>
+				<div class="key"><p>C</p></div>
+				<div class="key"><p>V</p></div>
+				<div class="key"><p>B</p></div>
+				<div class="key"><p>N</p></div>
+				<div class="key"><p>M</p></div>
+				<div class="key" style="width: 65px;"><p><-</div>
+			</div>
+		</div>
+
+		<script>
+			const letterboxes = document.getElementsByClassName("letterbox");
+
+			let firstEmptyLetterboxNumber = 0;
+
+			function enterLetter(letter) {
+				firstEmptyLetterbox = letterboxes[firstEmptyLetterboxNumber];
+				firstEmptyLetterbox.innerHTML = "<p>" + letter + "</p>";
+
+				firstEmptyLetterboxNumber = firstEmptyLetterboxNumber + 1;
+			}
+
+			function deleteLatestLetter() {
+				if (firstEmptyLetterboxNumber == 0) {
+					return;
+				}
+
+				const latestLetterbox = letterboxes[firstEmptyLetterboxNumber - 1];
+				latestLetterbox.innerHTML = '';
+				firstEmptyLetterboxNumber = firstEmptyLetterboxNumber - 1;
+			}
+
+			const keys = document.getElementsByClassName("key");
+			for(i = 0; i < keys.length; i++) {
+				key = keys[i];
+				key.onclick = function (event) {
+					const letter = event.target.textContent;
+					enterLetter(letter);
+				}
+			}
+
+			document.addEventListener("keydown", function (event) {
+				const letter = event.key;
+
+				if (letter == "Backspace") {
+					deleteLatestLetter();
+				} else {
+					enterLetter(letter);					
+				}
+			}); 
+		</script>
+	</body>
+</html>
