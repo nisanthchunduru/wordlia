@@ -1,3 +1,3 @@
 # Wordlia
 
-A Wordle clone to teach web development
+A Wordle clone in plain JavaScript to teach web development
