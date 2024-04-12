@@ -207,10 +207,10 @@
 
 				if (letter == "Backspace") {
 					deleteLatestLetter();
-				} else {
-					enterLetter(letter);					
+				} else if (/^[a-zA-Z]$/.test(letter)) {
+					enterLetter(letter.toUpperCase());
 				}
-			}); 
+			});
 		</script>
 	</body>
 </html>
